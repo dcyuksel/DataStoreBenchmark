@@ -10,7 +10,7 @@ public class SqlBulkCopyRepository(IConfiguration configuration) : ISqlBulkCopyR
 {
     private readonly string connectionString = configuration.GetConnectionString("DefaultConnection")!;
 
-    public async Task<long> BulkCopyAsync(DataTable dataTable) => 
+    public async Task<long> BulkCopyAsync(DataTable dataTable) =>
         await MeasureElapsedMillisecondsAsync(
             async () =>
             {
