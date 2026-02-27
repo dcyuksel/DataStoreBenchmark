@@ -1,7 +1,7 @@
 # DataStoreBenchmark
 
 DataStoreBenchmark is a .NET 10 application that helps you measure how fast different ways of saving data to a SQL database really are.
-It�s a simple tool to show you which method works best when you need to insert data.
+It's a simple tool to show you which method works best when you need to insert data.
 
 ## What Does It Do?
 
@@ -16,7 +16,7 @@ It�s a simple tool to show you which method works best when you need to insert
 
 ## Benchmark Results
 
-Here�s what we found when running the benchmarks:
+Here's what we found when running the benchmarks:
 
 | Number of Movies | EF Core Add & Save 1 by 1 | EF Core Add 1 by 1, Save Once | EF Core Add Range, Save Once | Dapper     | SQL Bulk Copy |
 | ---------------- | ------------------------- | ----------------------------- | ---------------------------- | ---------- | ------------- |
