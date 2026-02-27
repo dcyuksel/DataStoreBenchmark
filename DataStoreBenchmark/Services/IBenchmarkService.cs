@@ -2,5 +2,5 @@
 
 public interface IBenchmarkService
 {
-    Task Run();
+    Task RunAsync();
 }

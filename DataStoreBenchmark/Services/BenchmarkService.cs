@@ -5,35 +5,42 @@ namespace DataStoreBenchmark.Services;
 
 public class BenchmarkService(
     IEfCoreRepository efCoreRepository,
-    ISqlBulkCopyRepository sqlBulkCopyRepository) : IBenchmarkService
+    ISqlBulkCopyRepository sqlBulkCopyRepository,
+    IDapperRepository dapperRepository) : IBenchmarkService
 {
-    private readonly int[] Numbers = [100, 1000, 10000, 100000];
+    private readonly int[] Numbers = [100, 1000, 10000];
 
-    public async Task Run()
+    public async Task RunAsync()
     {
         foreach (var number in Numbers)
         {
-            await Run(number);
+            await RunAsync(number);
         }
     }
 
-    private async Task Run(int count)
+    private async Task RunAsync(int count)
     {
         Console.WriteLine($"Running benchmark for {count} movies...");
 
+        var movies = MovieGeneratorExtensions.Generate(count);
         await RunBenchmarkOperation(
-            () => efCoreRepository.AddAndSave1By1Async(MovieGeneratorExtensions.Generate(count)),
-            "adding and saving 1 by 1"
+            () => efCoreRepository.AddAndSave1By1Async(movies),
+            "ef core - adding and saving 1 by 1"
         );
 
         await RunBenchmarkOperation(
-            () => efCoreRepository.Add1By1SaveAsync(MovieGeneratorExtensions.Generate(count)),
-            "adding 1 by 1 and saving once"
+            () => efCoreRepository.Add1By1SaveAsync(movies),
+            "ef core - adding 1 by 1 and saving once"
         );
 
         await RunBenchmarkOperation(
-            () => efCoreRepository.AddRangeSaveAsync(MovieGeneratorExtensions.Generate(count)),
-            "adding range and saving once"
+            () => efCoreRepository.AddRangeSaveAsync(movies),
+            "ef core - adding range and saving once"
+        );
+
+        await RunBenchmarkOperation(
+            () => dapperRepository.AddAsync(movies),
+            "dapper"
         );
 
         await RunBenchmarkOperation(

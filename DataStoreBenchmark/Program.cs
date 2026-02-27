@@ -21,6 +21,7 @@ IServiceCollection RegisterServices()
     services.AddScoped<IBenchmarkService, BenchmarkService>();
     services.AddScoped<IEfCoreRepository, EfCoreRepository>();
     services.AddScoped<ISqlBulkCopyRepository, SqlBulkCopyRepository>();
+    services.AddScoped<IDapperRepository, DapperRepository>();
     services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
     services.AddSingleton<IConfiguration>(configuration);
@@ -40,5 +41,5 @@ async Task Benchmark(IServiceProvider serviceProvider)
 {
     using var scope = provider.CreateScope();
     var benchmarkService = scope.ServiceProvider.GetRequiredService<IBenchmarkService>();
-    await benchmarkService.Run();
+    await benchmarkService.RunAsync();
 }
