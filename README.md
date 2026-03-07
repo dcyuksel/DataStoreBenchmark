@@ -1,5 +1,7 @@
 # DataStoreBenchmark
 
+**Full article:** [What’s the Fastest Way to Save Large Amounts of Data in .NET?](https://medium.com/@dnzcnyksl/whats-the-fastest-way-to-save-large-amounts-of-data-in-net-94ca7db53c0b)
+
 DataStoreBenchmark is a .NET 10 application that helps you measure how fast different ways of saving data to a SQL database really are.
 It's a simple tool to show you which method works best when you need to insert data.
 
